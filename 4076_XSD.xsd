@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="documento">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="demonstrativoDaPosicaoPatrimonial" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="conta" minOccurs="1" maxOccurs="unbounded"
+								type="tipoConta">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+					<xs:key name="pkDemonstrativoDaPosicaoPatrimonial">
+						<xs:selector xpath="conta" />
+						<xs:field xpath="@codigo" />
+					</xs:key>
+				</xs:element>
+				<xs:element name="demonstrativoDeResultadosAbrangentes" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="conta" minOccurs="1" maxOccurs="unbounded"
+								type="tipoConta">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="demonstrativoDasMutacoesDoPatrimonioLiquido" minOccurs="1"
+					maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="itemDMPL" minOccurs="1" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="conta" minOccurs="1" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="codigo" type="tipoContaCosif"
+													use="required" />
+												<xs:attribute name="anterior" type="tipoValor"
+													use="required" />
+												<xs:attribute name="atual" type="tipoValor"
+													use="required" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+								<xs:key name="pkReceitasOperacionaisENaoOperacionaisItens">
+									<xs:selector xpath="itemDMPL" />
+									<xs:field xpath="@contaCosif" />
+								</xs:key>
+							</xs:element>
+							<xs:element name="mutacoes" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="mutacao" minOccurs="1"
+											maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="conta" minOccurs="0"
+														maxOccurs="unbounded" type="tipoConta">
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="nroItem" use="required">
+
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:pattern value="[0-9]*" />
+															<xs:minLength value="3" />
+															<xs:maxLength value="3" />
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="descricao" type="xs:string"
+													use="optional" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+								<xs:key name="pkMutacoesMutacao">
+									<xs:selector xpath="mutacao" />
+									<xs:field xpath="@nroItem" />
+								</xs:key>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="aquisicoesVendasReestruturacoes" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="efeitos" minOccurs="1"
+											maxOccurs="unbounded">
+											<xs:complexType>
+
+												<xs:attribute name="patrimonioValor"
+													type="tipoValor" use="required" />
+
+												<xs:attribute name="resultadoValor" type="tipoValor"
+													use="required" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="idEvento" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:integer">
+												<xs:pattern value="[0-9]{2}" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="idSegmento" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="01" />
+												<xs:enumeration value="02" />
+												<xs:enumeration value="03" />
+												<xs:enumeration value="04" />
+												<xs:enumeration value="05" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="dataBase" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:gYearMonth">
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="entidade" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="tipo" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:integer">
+												<xs:pattern value="[1-5]{1}" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="descricao" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="desdobramentoDoResultado" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="resultadoLiquido" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="valor" type="tipoValor" use="required" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="itensNaoRecorrentes" minOccurs="0"
+								maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="item" minOccurs="1" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="idItem" use="required">
+													<xs:simpleType>
+														<xs:restriction base="xs:integer">
+															<xs:pattern value="[0-9]{2}" />
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="descricao" use="required">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="valorBruto" type="tipoValor"
+													use="required" />
+												<xs:attribute name="efeitoTributario"
+													type="tipoValor" use="required" />
+												<xs:attribute name="valorLiquido" type="tipoValor"
+													use="required" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="outrosEventos" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="evento" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="idItem" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:integer">
+												<xs:pattern value="[0-9]{2}" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="descricao" use="required">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="patrimonioValor" type="tipoValor"
+										use="required" />
+									<xs:attribute name="resultadoValor" type="tipoValor"
+										use="required" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+					<xs:key name="pkOutrosEventos">
+						<xs:selector xpath="evento" />
+						<xs:field xpath="@idItem" />
+					</xs:key>
+				</xs:element>
+				<xs:element name="relatorioAuditoria" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:attribute name="tipoOpiniao" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:integer">
+									<xs:pattern value="[1-4]{1}" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="nomeAuditoria" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="registroAuditoria" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="[/0-9a-zA-Z-]*" />
+									<xs:minLength value="1" />
+									<xs:maxLength value="100" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="nomeResponsavel" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="[0-9a-zA-Z\s]*[À-ü]*" />
+									<xs:minLength value="1" />
+									<xs:maxLength value="100" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="emailAuditoria" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern
+										value="([-._\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="registroResponsavel" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value="[/0-9a-zA-Z-]*" />
+									<xs:minLength value="1" />
+									<xs:maxLength value="100" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="conteudo" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:pattern value=".*" />
+									<xs:minLength value="1" />
+									<xs:maxLength value="1000000" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="codigoDocumento" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:pattern value="4076" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="dataBase" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:gYearMonth">
+						<xs:maxInclusive value="9999-12" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="codigoConglomerado" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="C[0-9]{7}" />
+						<xs:minLength value="8" />
+						<xs:maxLength value="8" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="cnpj" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:pattern value="[0-9]{8}" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="tipoRemessa" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="I" />
+						<xs:enumeration value="S" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="tipoConta">
+		<xs:attribute name="codigo" type="tipoContaCosif" use="required" />
+		<xs:attribute name="valor" type="tipoValor" use="required" />
+	</xs:complexType>
+
+	<xs:simpleType name="tipoContaCosif">
+		<xs:restriction base="xs:integer">
+			<xs:pattern value="[0-9]{8,8}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="tipoValor">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="18" />
+			<xs:fractionDigits value="2" />
+			<xs:minExclusive value="-100000000000000000" />
+			<xs:maxExclusive value="100000000000000000" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

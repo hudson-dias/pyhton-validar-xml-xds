@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documento
+    codigoDocumento="4076"
+    dataBase="2022-10"
+    codigoConglomerado="C1234567"
+    cnpj="12345678"
+    tipoRemessa="I">
+    <demonstrativoDaPosicaoPatrimonial>
+        <conta codigo="12345678" valor="10000.00" />
+    </demonstrativoDaPosicaoPatrimonial>
+    <demonstrativoDeResultadosAbrangentes>
+        <conta codigo="12345678" valor="5000.00" />
+    </demonstrativoDeResultadosAbrangentes>
+    <demonstrativoDasMutacoesDoPatrimonioLiquido>
+        <itemDMPL>
+            <conta codigo="12345678"
+                anterior="15000.00"
+                atual="20000.00" />
+        </itemDMPL>
+        <mutacoes>
+            <mutacao nroItem="101" descricao="Exemplo de descrição">
+                <conta codigo="12345678" valor="3000.00" />
+            </mutacao>
+        </mutacoes>
+    </demonstrativoDasMutacoesDoPatrimonioLiquido>
+    <aquisicoesVendasReestruturacoes>
+        <item
+            idEvento="01"
+            dataBase="2022-10"
+            entidade="Z1234567"
+            idSegmento="01"
+            tipo="1"
+            descricao="Exemplo de descrição extensa">
+            <efeitos
+                patrimonioValor="5000.00"
+                resultadoValor="2000.00" />
+        </item>
+    </aquisicoesVendasReestruturacoes>
+    <desdobramentoDoResultado>
+        <resultadoLiquido
+            valor="4000.00" />
+        <itensNaoRecorrentes>
+            <item
+                idItem="01"
+                descricao="Item não recorrente"
+                valorBruto="1000.00"
+                efeitoTributario="200.00"
+                valorLiquido="800.00" />
+        </itensNaoRecorrentes>
+    </desdobramentoDoResultado>
+    <outrosEventos>
+        <evento
+            idItem="01"
+            descricao="Descrição do evento"
+            patrimonioValor="7000.00"
+            resultadoValor="7004.05" />
+    </outrosEventos>
+    <relatorioAuditoria
+        tipoOpiniao="1"
+        nomeAuditoria="Auditoria Exemplo"
+        registroAuditoria="RegAuditoria"
+        emailAuditoria="exemplo@email.com"
+        nomeResponsavel="Responsavel Exemplaa aasdadad"
+        registroResponsavel="RegResponsavel"
+        conteudo="Conteúdo do relatório de auditoria" />
+</documento>

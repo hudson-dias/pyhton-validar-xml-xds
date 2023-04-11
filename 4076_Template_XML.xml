@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<documento
+    codigoDocumento="4076"
+    dataBase="AAAA-MM"
+    codigoConglomerado="C[0-9]{7}"
+    cnpj="[0-9]{8}"
+    tipoRemessa="I|S">
+    <demonstrativoDaPosicaoPatrimonial>
+        <conta codigo="[0-9]{8}" valor="\d{1,16}\.\d{2}" />
+    </demonstrativoDaPosicaoPatrimonial>
+    <demonstrativoDeResultadosAbrangentes>
+        <conta codigo="[0-9]{8,9}" valor="\d{1,16}\.\d{2}" />
+    </demonstrativoDeResultadosAbrangentes>
+    <demonstrativoDasMutacoesDoPatrimonioLiquido>
+        <itemDMPL>
+            <conta codigo="[0-9]{8}"
+                anterior="-?\d{1,16}\.\d{2}"
+                atual="-?\d{1,16}\.\d{2}" />
+        </itemDMPL>
+        <mutacoes>
+            <mutacao nroItem="[0-9]{2}" descricao="[0-9][a-z][A-Z]{100}">
+                <conta codigo="[0-9]{8}" valor="\d{1,16}\.\d{2}" />
+            </mutacao>
+        </mutacoes>
+    </demonstrativoDasMutacoesDoPatrimonioLiquido>
+    <aquisicoesVendasReestruturacoes>
+        <item
+            idEvento="[0-9]{2}"
+            dataBase="AAAA-MM"
+            entidade="Z[0-9]{7}"
+            idSegmento="1|2|3|4|5|99"
+            descSegmento="[0-9][a-z][A-Z]{100}"
+            tipo="[1-5]{1}"
+            descricao="[0-9][a-z][A-Z]{10000}">
+            <efeitos
+                patrimonioValor="\d{1,16}\.\d{2}"
+                resultadoValor="\d{1,16}\.\d{2}" />
+        </item>
+    </aquisicoesVendasReestruturacoes>
+    <desdobramentoDoResultado>
+        <resultadoLiquido
+            valor="\d{1,16}\.\d{2}" />
+        <itensNaoRecorrentes>
+            <item
+                idItem="[0-9]{2}"
+                descricao="[0-9][a-z][A-Z]{100}"
+                valorBruto="\d{1,16}\.\d{2}"
+                efeitoTributario="\d{1,16}\.\d{2}"
+                valorLiquido="\d{1,16}\.\d{2}" />
+        </itensNaoRecorrentes>
+    </desdobramentoDoResultado>
+    <outrosEventos>
+        <evento
+            idItem="[0-9]{2}"
+            descricao="[0-9][a-z][A-Z]{10000}"
+            patrimonioValor="\d{1,16}\.\d{2}" /> resultadoValor="\d{1,16}\.\d{2}"/> </outrosEventos>
+    <relatorioAuditoria
+        tipoOpiniao="[1-4]{1}"
+        nomeAuditoria="[0-9][a-z][A-Z]{100}"
+        registroAuditoria="[0-9][a-z][A-Z]{100} "
+        emailAuditoria="([-._\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}"
+        nomeResponsavel="[0-9][a-z][A-Z]{100}"
+        registroResponsavel="[0-9][a-z][A-Z]{100}"
+        cpfResponsavel="[0-9]={11}"
+        conteudo="[0-9][a-z][A-Z]{1000000}" />
+</documento>
